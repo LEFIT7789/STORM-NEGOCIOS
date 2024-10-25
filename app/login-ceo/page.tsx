@@ -32,7 +32,7 @@ export default function LoginCEO() {
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
           <label htmlFor="nombre" className="block text-sm font-medium text-gray-300">Nombre del CEO</label>
-          <input type="text" id="nombre" name="nombre" required className="mt-1 block w-full rounded-md bg-gray-700 border-gray-600 text-white focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50" />
+          <input  type="text" id="nombre" name="nombre" required className="mt-1 block w-full rounded-md bg-gray-700 border-gray-600 text-white focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50" />
         </div>
         <div>
           <label htmlFor="password" className="block text-sm font-medium text-gray-300">Contraseña</label>

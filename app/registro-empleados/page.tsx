@@ -4,21 +4,38 @@ import { useState } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 
+interface Empleado {
+  nombre: string;
+  apellido: string;
+  email: string;
+  telefono: string;
+  puesto: string;
+  departamento: string;
+  sueldoDeseado: number;
+  fechaRegistro: string;
+  estado: string;
+  sueldoActual: number;
+  fechaPago: string;
+}
+
 export default function RegistroEmpleados() {
   const [successMessage, setSuccessMessage] = useState('')
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     const formData = new FormData(e.currentTarget)
-    const empleado: any = Object.fromEntries(formData.entries())
+    const empleadoData = Object.fromEntries(formData.entries()) as Record<string, string>
     
-    empleado.fechaRegistro = new Date().toISOString().split('T')[0]
-    empleado.estado = 'Pendiente'
-    empleado.sueldoDeseado = parseFloat(empleado.sueldoDeseado) || 0
-    empleado.sueldoActual = 0
-    empleado.fechaPago = ''
+    const empleado: Empleado = {
+      ...empleadoData,
+      fechaRegistro: new Date().toISOString().split('T')[0],
+      estado: 'Pendiente',
+      sueldoDeseado: parseFloat(empleadoData.sueldoDeseado) || 0,
+      sueldoActual: 0,
+      fechaPago: '',
+    } as Empleado
     
-    let empleados = JSON.parse(localStorage.getItem('empleados') || '[]')
+    const empleados: Empleado[] = JSON.parse(localStorage.getItem('empleados') || '[]')
     empleados.push(empleado)
     localStorage.setItem('empleados', JSON.stringify(empleados))
     
@@ -29,7 +46,7 @@ export default function RegistroEmpleados() {
   return (
     <div className="container mx-auto px-4 py-8 max-w-md bg-gray-800 bg-opacity-90 rounded-lg shadow-xl">
       <Image src="/STORM.png" alt="STORM Logo" width={128} height={128} className="mx-auto mb-6 filter drop-shadow-lg" />
-      <h1 className="text-3xl font-bold text-center mb-6">Registro de Empleados STORM</h1>
+      <h1 className="text-3xl font-bold text-center mb-6 text-white">Registro de Empleados STORM</h1>
       <p className="text-center text-gray-400 mb-8">Empresa de Producción y Distribución</p>
       
       <form onSubmit={handleSubmit} className="space-y-4">

@@ -39,7 +39,7 @@ export default function ControlEmpleados() {
 
   const filteredEmpleados = empleados.filter(empleado => 
     Object.values(empleado).some(value => 
-      value.toString().toLowerCase().includes(searchTerm)
+      typeof value === 'string' && value.toLowerCase().includes(searchTerm)
     )
   )
 
@@ -103,7 +103,6 @@ export default function ControlEmpleados() {
           </tbody>
         </table>
       </div>
-      
       
       <button onClick={handleLogout} className="mt-4 py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500">
         Cerrar Sesión
